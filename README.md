@@ -21,10 +21,14 @@
 ## Database Objects Created
 
 ### Tables
+| Table | Purpose |
+|---|---|
 | `web_traffic_raw` | Main data table — stores all 2,793 records with 12 derived columns added |
 | `analysis_log` | Audit trail — logs every major query/procedure run with timestamps |
 
 ### Derived Columns Added to `web_traffic_raw`
+| Column | Type | Description |
+|---|---|---|
 | `traffic_year` | INT | Year extracted from timestamp |
 | `traffic_month` | INT | Month number (1–12) |
 | `month_name` | VARCHAR | Month name (e.g. "February") |
@@ -39,10 +43,20 @@
 | `is_spike` | TINYINT | 1 if traffic > 31,549 (mean + 2×std) |
 
 ### Views (Reusable Saved Queries)
+| View | Description |
+|---|---|
 | `vw_daily_summary` | Daily totals, averages, peak hours, spike count |
 | `vw_hourly_pattern` | Average traffic for each hour of the day |
 | `vw_monthly_kpi` | Monthly KPIs — total traffic, peaks, spike count |
 | `vw_spike_events` | All 144 anomalous spike hours with z-scores |
+
+### Stored Procedures
+| Procedure | Usage | Description |
+|---|---|---|
+| `sp_daily_report(date)` | `CALL sp_daily_report('2020-02-03');` | Full hourly breakdown for any single day |
+| `sp_range_report(start, end)` | `CALL sp_range_report('2020-02-01','2020-02-29');` | Summary + daily breakdown for any date range |
+| `sp_executive_report()` | `CALL sp_executive_report();` | Complete report with all KPIs in one call |
+
 
 ### Stored Procedures
 | `sp_daily_report(date)` | `CALL sp_daily_report('2020-02-03');` | Full hourly breakdown for any single day |
@@ -50,10 +64,11 @@
 | `sp_executive_report()` | `CALL sp_executive_report();` | Complete report with all KPIs in one call |
 
 ---
-
 ### Step 5 — Run remaining phases in order
 Run each phase by selecting it and pressing `Ctrl + Shift + Enter`.
 
+| Phase | What it does |
+|---|---|
 | Phase 1 | Setup — database, table, derived columns |
 | Phase 2 | Exploratory analysis — overview, categories, spikes |
 | Phase 3 | Time trends — monthly, weekly, daily, rolling averages |
