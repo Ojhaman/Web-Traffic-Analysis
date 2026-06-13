@@ -7,6 +7,8 @@
 
 ## Dataset Overview
 
+| Property | Value |
+|---|---|
 | **File** | `web_traffic.csv` |
 | **Rows** | 2,793 hourly readings |
 | **Columns** | `Timestamp`, `TrafficCount` |
